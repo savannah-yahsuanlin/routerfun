@@ -23,12 +23,24 @@ const Thing = () => {
 		dispatch(destroyThing(thing))
 		navigate('/things');
 	}
+
+	const update = async(ev) => {
+		ev.preventDefault()
+		try {
+			const updated = {id, name}
+			await dispatch(updateThing(updated))
+			navigate(`/things/${id}`);
+		} catch (error) {
+			console.log(error.response.data)
+		}
+	}
 	return (
 		<div>
 			<h1>Todo</h1>
 				{thing.name}
 			<form onSubmit={update}>
-
+				<input value={name} onChange={(e) => setName(e.target.value)}/>
+				<button disabled={name === thing.name}>Update</button>
 			</form>
 			<button onClick={() => destroyed(thing) }>X</button>
 		</div>
