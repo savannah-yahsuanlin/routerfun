@@ -4,10 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
-    "build": "webpack",
-    "build:dev": "npm run build -- --watch --mode=development",
-    "start:dev": "nodemon server.js --ignore dist/ --ignore src/ & npm run build:dev"
+    "build-watch": "webpack -w",
+    "start-server": "nodemon --watch server.js -e js,html",
+    "start:dev": "npm run start-server & npm run build-watch"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +16,7 @@
     "@babel/preset-react": "^7.18.6",
     "axios": "^1.3.4",
     "babel-loader": "^9.1.2",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.21",
     "pg": "^8.10.0",

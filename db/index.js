@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db')
+require('dotenv').config()
+const conn = new Sequelize(process.env.DATABASE_URL)
 
 const User = conn.define('user', {
 	id: {
@@ -9,8 +10,7 @@ const User = conn.define('user', {
 	},
 	name: {
 		type: Sequelize.STRING,	
-		allowNull: false,
-		unique: true
+		allowNull: false
 	}
 })
 
@@ -22,7 +22,6 @@ const Thing = conn.define('thing', {
 	},
 	name: {
 		type: Sequelize.STRING,
-		unique: true,
 		allowNull: false,
 		 validate: {
       len: [2, 255]

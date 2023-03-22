@@ -1,8 +1,9 @@
+'use strict'
 const express = require('express');
 const app = express();
 const path = require('path');
-const {conn, User, Thing} = require('./db')
-
+const seed = require('./seed');
+const {Thing, User} = require('./db');
 
 app.use('/dist', express.static('dist'));
 app.use('/assets', express.static('assets'));
@@ -26,6 +27,7 @@ app.post('/api/things', async(req, res, next) =>{
 	}
 })
 
+
 app.put('/api/things/:id', async(req, res, next) =>{
 	try {
 		const thing = await Thing.findByPk(req.params.id)
@@ -35,7 +37,7 @@ app.put('/api/things/:id', async(req, res, next) =>{
 	}
 })
 
-app.delete('/api/things', async(req, res, next) => {
+app.delete('/api/things/:id', async(req, res, next) => {
 	try {
 		const thing = await Thing.findByPk(req.params.id)
 		await thing.destroy()
@@ -70,18 +72,13 @@ app.use((err, req, res, next)=> {
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, async() => {
+const init = async() => {
 	try {
-		await conn.sync({force: true})
-
-		const [moe, larry, lucy] = await Promise.all([
-			['moe', 'larry', 'lucy'].map((name) => User.create({name})) 
-		])
-		const [wash, clean, mop, dry] = await Promise.all([
-			['wash', 'clean', 'mop', 'dry'].map(name => Thing.create({name}))
-		])
-		console.log(`listening on ${PORT}`)
+		await seed()
+		app.listen(PORT, () => console.log(`listening on port ${PORT}`))
 	} catch (error) {
 		console.log(error)
 	}
-})
+}
+
+init()

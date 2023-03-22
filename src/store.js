@@ -20,7 +20,7 @@ export const createThing = (thing) => {
 export const destroyThing = (thing) => {
 	return async(dispatch) => {
 		await axios.delete(`/api/things/${thing.id}`)
-		dispatch({type: 'DESTROY_THING', thing})
+		dispatch({type: 'DELETE_THING', thing })
 	}
 }
 
@@ -52,13 +52,14 @@ export const thingsReducer = (state=[], action) => {
 		case 'CREATE_THING':
 			return [...state, action.thing]
 		case 'DELETE_THING':
-			return state.filter(thing => thing.id !== action.thing)
+			return state.filter(thing => thing.id !== action.thing.id)
 		case 'UPDATE_THING':
 			return state.map(thing => thing.id === action.thing.id ? action.thing:thing)
 		default:
 			return state
 	}
 }
+
 
 export const usersReducer = (state=[], action) => {
 	switch(action.type) {

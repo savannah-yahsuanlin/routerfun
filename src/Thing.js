@@ -21,7 +21,7 @@ const Thing = () => {
 
 	const destroyed = (thing) => {
 		dispatch(destroyThing(thing))
-		navigate('/things');
+		navigate('/things')
 	}
 
 	const update = async(ev) => {
@@ -29,7 +29,7 @@ const Thing = () => {
 		try {
 			const updated = {id, name}
 			await dispatch(updateThing(updated))
-			navigate(`/things/${id}`);
+			navigate(`/things`);
 		} catch (error) {
 			console.log(error.response.data)
 		}
