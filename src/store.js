@@ -10,6 +10,27 @@ export const setThings = () => {
 	}
 }
 
+export const createThing = (thing) => {
+	return async(dispatch) => {
+		const response = await axios.post('/api/things', thing)
+		dispatch({type: 'CREATE_THING', thing: response.data})
+	}
+}
+
+export const destroyThing = (thing) => {
+	return async(dispatch) => {
+		await axios.delete(`/api/things/${thing.id}`)
+		dispatch({type: 'DESTROY_THING', thing})
+	}
+}
+
+export const updateThing = (thing) => {
+	return async(dispatch) => {
+		const response = await axios.put(`/api/things/${thing.id}`, thing)
+		dispatch({type: 'UPDATE_THING', thing: response.data })
+	}
+}
+
 export const setUsers = () => {
 	return async(dispatch) => {
 		const response = await axios.get('/api/users')
@@ -28,6 +49,12 @@ export const thingsReducer = (state=[], action) => {
 	switch(action.type) {
 		case 'SET_THINGS':
 			return action.things
+		case 'CREATE_THING':
+			return [...state, action.thing]
+		case 'DELETE_THING':
+			return state.filter(thing => thing.id !== action.thing)
+		case 'UPDATE_THING':
+			return state.map(thing => thing.id === action.thing.id ? action.thing:thing)
 		default:
 			return state
 	}
@@ -37,6 +64,8 @@ export const usersReducer = (state=[], action) => {
 	switch(action.type) {
 		case 'SET_USERS':
 			return action.users
+		case 'DELETE_USER':
+			return state.filter(user => user.id !== action.user.id)
 		default:
 			return state
 	}

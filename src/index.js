@@ -3,6 +3,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import Things from './Things';
+import Thing from './Thing';
 import Users from './Users';
 import Home from './Home';
 import Nav from './Nav';
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={ <Home />} />
         <Route path='/things' element={ <Things />} />
+				<Route path='/things/:id' element={ <Thing />} />
 				<Route path='/users' element={ <Users />} />
       </Routes>
     </div>

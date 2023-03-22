@@ -7,7 +7,7 @@ const Things = () => {
 
 	return (
 		<div>
-			<h1>Things</h1>
+			<h1>Todos</h1>
 				<ul>
 					{
 						things.map(thing => {
