@@ -2,7 +2,7 @@
   "name": "thewayout",
   "version": "1.0.0",
   "description": "",
-  "main": "server",
+  "main": "server.js",
   "scripts": {
     "build-watch": "webpack -w",
     "start-server": "nodemon --watch server -e js,html",
