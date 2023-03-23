@@ -2,10 +2,6 @@ const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db')
 
 const User = conn.define('user', {
-	id: {
-		type: Sequelize.INTEGER,
-		primaryKey: true
-	},
 	name: {
 		type: Sequelize.STRING,	
 		allowNull: false
@@ -13,10 +9,6 @@ const User = conn.define('user', {
 })
 
 const Thing = conn.define('thing', {
-	id: {
-		type: Sequelize.INTEGER,
-		primaryKey: true
-	},
 	name: {
 		type: Sequelize.STRING,
 		allowNull: false,
