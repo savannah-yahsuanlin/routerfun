@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
-require('dotenv').config()
-const conn = new Sequelize(process.env.DATABASE_URL)
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db')
 
 const User = conn.define('user', {
 	id: {
