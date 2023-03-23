@@ -2,8 +2,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const seed = require('./seed');
-const {Thing, User} = require('./db');
+const { User, Thing, conn } = require('./db');
 
 app.use('/dist', express.static('dist'));
 app.use('/assets', express.static('assets'));
@@ -72,13 +71,18 @@ app.use((err, req, res, next)=> {
 
 const PORT = process.env.PORT || 3000
 
-const init = async() => {
-	try {
-		await seed()
-		app.listen(PORT, () => console.log(`listening on port ${PORT}`))
-	} catch (error) {
-		console.log(error)
-	}
-}
-
-init()
+app.listen(PORT, async ()=> {
+  try {
+    await conn.sync({ force: true });
+    const [moe, larry, lucy] = await Promise.all(
+      ['moe', 'larry', 'lucy'].map( name => User.create({ name }))
+    );
+    const [foo, bar, bazz] = await Promise.all(
+      ['foo', 'bar', 'bazz', 'quq'].map( name => Thing.create({ name }))
+    );
+    console.log(`listening on port ${PORT}`)
+  }
+  catch(ex){
+    console.log(ex);
+  }
+});
