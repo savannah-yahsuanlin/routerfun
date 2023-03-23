@@ -2,8 +2,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const seed = require('../seed');
-const {Thing, User} = require('../db');
+const seed = require('./seed');
+const {Thing, User} = require('./db');
 
 app.use('/dist', express.static('dist'));
 app.use('/assets', express.static('assets'));
