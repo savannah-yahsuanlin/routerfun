@@ -3,8 +3,7 @@ const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acm
 
 const User = conn.define('user', {
 	id: {
-		type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
+		type: Sequelize.INTEGER,
 		primaryKey: true
 	},
 	name: {
@@ -15,8 +14,7 @@ const User = conn.define('user', {
 
 const Thing = conn.define('thing', {
 	id: {
-		type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
+		type: Sequelize.INTEGER,
 		primaryKey: true
 	},
 	name: {
