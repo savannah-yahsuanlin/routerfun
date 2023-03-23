@@ -1,5 +1,10 @@
 const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db', {rejectUnauthorized: false})
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_db', {dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },})
 
 const User = conn.define('user', {
 	id: {
